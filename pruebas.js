@@ -147,7 +147,7 @@ function restock(itemCount, target) {
 
     let addItems = 0;
 
-    for (item of itemCount) {
+    for (let item of itemCount) {
         addItems += item;
         if (addItems >= target) {
             return addItems - target;
@@ -160,7 +160,7 @@ function restock(itemCount, target) {
 /* console.log(restock([2, 2, 4], 10)); */
 
 //REVISAR
-/* function bananas(string) {
+function bananas(string) {
     arrayString = string.split('');
 
     let counter = 0;
@@ -172,18 +172,20 @@ function restock(itemCount, target) {
         else if (single == ')') {
             counter--;
         }
-
     }
-    let total=counter;
-    return total;
+    if (counter < 0) {
+        counter *= -1;
+    }
+
+    return counter;
 }
-console.log(bananas('((((((())))))))')); */
+/* console.log(bananas('()(()())))((')); */
 
 function minimunCostProyects(numberProyects, idProyects, costProyects) {
     let arrayId = [];
     let minimumCostProyects = [];
 
-    for (id of idProyects) {
+    for (let id of idProyects) {
         if (!arrayId.includes(id)) {
             arrayId.push(id);
         }
@@ -198,7 +200,7 @@ function minimunCostProyects(numberProyects, idProyects, costProyects) {
     for (let i = 0; i < costProyects.length; i++) {
         let currentValue = costProyects[i];
         let currentProyect = idProyects[i];
-        
+
         if (currentValue < minimumCostProyects[currentProyect]) {
             minimumCostProyects[currentProyect] = currentValue;
         }
@@ -211,3 +213,66 @@ function minimunCostProyects(numberProyects, idProyects, costProyects) {
     return minimumCostProyects, total;
 }
 /* console.log(minimunCostProyects(3, [0, 1, 0, 1, 2], [10, 7, 5, 2, 1])); */
+
+
+/**Print the following  lines, each to  decimals:
+
+proportion of positive values
+proportion of negative values
+proportion of zeros */
+function plusMinus(arr) {
+    let lengthArr = arr.length;
+    let positive = 0, negative = 0, zero = 0;
+    let answer = [];
+
+    for (let number of arr) {
+        if (number < 0) {
+            negative++;
+        }
+        else if (number > 0) {
+            positive++;
+        }
+        else {
+            zero++
+        }
+    }
+    positive = (positive / lengthArr).toFixed(5);
+    negative = (negative / lengthArr).toFixed(5);
+    zero = (zero / lengthArr).toFixed(5);
+
+    console.log(positive);
+    console.log(negative);
+    console.log(zero);
+
+}
+
+/* console.log(plusMinus([-4, 3, -9, 0, 4, 1])); */
+
+function miniMaxSum(arr) {
+
+    minimumSum = 0;
+    maximumSum = 0;
+    let total = 0;
+    let addArray = [];
+
+    for (let i = 0; i < arr.length; i++) {
+        let add = 0;
+
+
+        for (let j = arr.length - 1; j >= 0; j--) {
+            if (arr[i] !== arr[j]) {
+                add += arr[j];
+            }
+            total = add;
+        }
+        addArray.push(total);
+        console.log('Suma array: ' + addArray);
+    }
+    minimumSum = Math.max(...addArray);
+    maximumSum = Math.min(...addArray);
+
+    console.log(minimumSum + '  ' + maximumSum);
+    return addArray;
+}
+
+console.log(miniMaxSum([1, 2, 3, 4, 5]));
