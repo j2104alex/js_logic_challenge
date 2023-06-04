@@ -223,7 +223,6 @@ proportion of zeros */
 function plusMinus(arr) {
     let lengthArr = arr.length;
     let positive = 0, negative = 0, zero = 0;
-    let answer = [];
 
     for (let number of arr) {
         if (number < 0) {
@@ -248,31 +247,49 @@ function plusMinus(arr) {
 
 /* console.log(plusMinus([-4, 3, -9, 0, 4, 1])); */
 
+
+/**Given five positive integers, find the minimum and maximum values that can be
+ *  calculated by summing exactly four of the five integers. Then print the respective 
+ * minimum and maximum values as a single line of two space-separated long integers. */
 function miniMaxSum(arr) {
 
-    minimumSum = 0;
-    maximumSum = 0;
-    let total = 0;
-    let addArray = [];
+    let add = 0;
 
     for (let i = 0; i < arr.length; i++) {
-        let add = 0;
+        if (arr[i] > 0) {
+            add += arr[i];
 
-
-        for (let j = arr.length - 1; j >= 0; j--) {
-            if (arr[i] !== arr[j]) {
-                add += arr[j];
-            }
-            total = add;
         }
-        addArray.push(total);
-        console.log('Suma array: ' + addArray);
     }
-    minimumSum = Math.max(...addArray);
-    maximumSum = Math.min(...addArray);
 
-    console.log(minimumSum + '  ' + maximumSum);
-    return addArray;
+    let maxNum = add - Math.min(...arr);
+    let minNum = add - Math.max(...arr);
+
+    console.log(minNum + ' ' + maxNum);
+
 }
 
-console.log(miniMaxSum([1, 2, 3, 4, 5]));
+/* console.log(miniMaxSum([5, 6, 1, 0, 0])); */
+
+/**Dado un arreglo encontrar el valor de la media, tener en cuenta que se debe organizar
+ * el arreglo de manera ascendente primero
+ */
+function findMedian(arr) {
+    let medianNumber= Math.round((arr.length-1)/2);
+    
+    //Ojo estudiar ordenar ascendentemente un arreglo
+    arr.sort((a,b)=>a-b);
+    /**Asi seria con el metodo burbuja en caso que no dejen usar un metodo de js
+     * for (let i = 0; i < arr.length - 1; i++) {
+
+    for (let j = 0; j < arr.length - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+      }
+    }
+  }
+     */
+
+    return arr[medianNumber];
+
+}
