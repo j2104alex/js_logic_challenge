@@ -275,10 +275,10 @@ function miniMaxSum(arr) {
  * el arreglo de manera ascendente primero
  */
 function findMedian(arr) {
-    let medianNumber= Math.round((arr.length-1)/2);
-    
+    let medianNumber = Math.round((arr.length - 1) / 2);
+
     //Ojo estudiar ordenar ascendentemente un arreglo
-    arr.sort((a,b)=>a-b);
+    arr.sort((a, b) => a - b);
     /**Asi seria con el metodo burbuja en caso que no dejen usar un metodo de js
      * for (let i = 0; i < arr.length - 1; i++) {
 
@@ -293,3 +293,162 @@ function findMedian(arr) {
     return arr[medianNumber];
 
 }
+
+/**Given a time in -hour AM/PM format, convert it to military (24-hour) time.
+
+Note: - 12:00:00AM on a 12-hour clock is 00:00:00 on a 24-hour clock.
+- 12:00:00PM on a 12-hour clock is 12:00:00 on a 24-hour clock.
+Function Description
+
+Complete the timeConversion function in the editor below. It should return a new string
+ representing the input time in 24 hour format.
+
+timeConversion has the following parameter(s):
+
+string s: a time in 12  hour format
+Returns
+
+string: the time in 24 hour format */
+function timeConversion(s) {
+
+    s = s.split(':');
+    let hours = parseInt(s[0]);
+
+    if (s[2].includes('PM')) {
+        if (hours === 12) {
+            s[2] = s[2].slice(0, 2);
+        }
+        else {
+            hours += 12;
+            s[2] = s[2].slice(0, 2);
+        }
+    }
+    else if (s[2].includes('AM')) {
+        if (hours === 12) {
+            hours = 0;
+            s[2] = s[2].slice(0, 2);
+        }
+        else {
+            s[2] = s[2].slice(0, 2);
+        }
+
+    }
+
+    s[0] = hours.toString().length === 1 ? '0' + hours.toString() : hours.toString();
+
+    return s.join(':');
+}
+
+
+function repeatNumbers(arr) {
+    let numbersNonRepeat = [];
+    let AmountNumbersRepeat = [];
+    let contador = 1;
+
+    arr.sort((a, b) => a - b)
+    for (let i = 0; i < arr.length; i++) {
+        if ((arr[i + 1]) === arr[i]) {
+            contador++;
+        }
+        else {
+            numbersNonRepeat.push(arr[i]);
+            AmountNumbersRepeat.push(contador);
+            contador = 1;
+        }
+    }
+    console.log(numbersNonRepeat);
+    console.log(AmountNumbersRepeat);
+}
+
+/* console.log(repeatNumbers([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1])); */
+
+/**Given an array of integers, where all elements but one occur twice, 
+ * find the unique element. */
+
+function lonelyinteger(a) {
+    let numberContainer = [];
+    let amoutNumbers = [];
+    let counter = 1;
+    let uniqueNumbers = [];
+
+    a.sort((a, b) => a - b);
+
+    for (let i = 0; i < a.length; i++) {
+        if (a[i + 1] === a[i]) {
+            counter++;
+        }
+        else {
+            numberContainer.push(a[i]);
+            amoutNumbers.push(counter);
+            counter = 1;
+        }
+    }
+
+    for (let j = 0; j < amoutNumbers.length; j++) {
+        if (amoutNumbers[j] === 1) {
+            uniqueNumbers.push(numberContainer[j]);
+        }
+    }
+    console.log(uniqueNumbers)
+    return uniqueNumbers;
+
+}
+
+/**Frequence list
+ * Alternative Sorting
+Another sorting method, the counting sort, does not require comparison. Instead, you create 
+an integer array whose index range covers the entire range of values in your array to sort. 
+Each time a value occurs in the original array, you increment the counter at that index. 
+At the end, run through your counting array, printing the value of each non-zero valued 
+index that number of times. 0-99
+ */
+
+function countingSort(arr) {
+    //Crear una variable de tipo arreglo de 100 valores inicializados en 0
+    let frequence = new Array(100).fill(0);
+
+    for (let i = 0; i < arr.length; i++) {
+        frequence[arr[i]]++;
+    }
+    return frequence;
+}
+
+
+function flippingMatrix(matrix) {
+
+    console.log('Matrix complete' + matrix);
+    let n = matrix[0].length;
+    let add = 0;
+
+    for (let i = 0; i < (matrix.length) / 2; i++) {
+
+        for (let j = 0; j < (matrix.length) / 2; j++) {
+            add += Math.max(
+                //EJEM primera iteracion
+                matrix[i][j], //posicion actual 112
+                matrix[n - 1 - i][j], //Espejo en columna 62
+                matrix[i][n - 1 - j],//Espejo en fila 119
+                matrix[n - 1 - i][n - 1 - j] //Espejo fila/columna
+            );
+        }
+    }
+    return add;
+}
+
+
+/* console.log(flippingMatrix([[112, 45, 83, 119], 
+                            [56, 125, 56, 49], 
+                            [15, 78, 101, 43], 
+                            [62, 98, 114, 108]])); */
+
+/**Two players are playing a game of Tower Breakers! Player  a
+ * lways moves first, and both players always play optimally.The rules of 
+ * the game are as follows:
+
+Initially there are n  towers.
+Each tower is of height m.
+The players move in alternating turns.
+In each turn, a player can choose a tower of height  and reduce its height to x , where  and  evenly divides y .
+If the current player is unable to make a move, they lose the game.
+Given the values of n and m, determine which player will win. If the first player wins, return 1. Otherwise, return 2. */
+
