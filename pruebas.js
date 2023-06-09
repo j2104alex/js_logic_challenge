@@ -512,3 +512,115 @@ function caesarCipher(s, k) {
     return encryptedText;
 
 }
+
+
+/* function palindromeIndex(s) {
+    s = s.split('');
+    console.log(s);
+    let lengthS = s.length - 1;
+    for (let i = 0; i < s.length / 2; i++) {
+        if (s[i] !== s[lengthS - i]) {
+
+            if (s[i + 1] == s[lengthS - i]) {
+
+                if (s[i + 1] == s[lengthS - i - 2]) {
+                    return lengthS - i;
+                }
+                return i;
+            }
+            else if (s[i] == s[lengthS - 1 - i]) {
+                return lengthS - i;
+            }
+        }
+    }
+    return -1;
+}
+ */
+/* console.log(palindromeIndex('hgygsvlfwcwnswtuhmyaljkqlqjjqlqkjlaymhutwsnwcflvsgygh')); */
+
+
+function palindromeIndex2(s) {
+
+    s = s.split('');
+    let optionA = [...s];
+    let optionB = [...s];
+
+    if (isPalindrome(s)) {
+        return -1;
+    }
+    else {
+        for (let i = 0; i < s.length / 2; i++) {
+
+            if (s[i] !== s[s.length - 1 - i]) {
+                optionA.splice(i, 1);
+                optionB.splice(s.length - 1 - i, 1);
+
+                if (isPalindrome(optionA)) {
+                    return i;
+                }
+                if (isPalindrome(optionB)) {
+                    return s.length - 1 - i;
+                }
+            }
+        }
+    }
+
+}
+
+/**Determinar la posicion i a eliminar para que el string sea un palindromo */
+function isPalindrome(option) {
+
+    for (let i = 0; i < option.length / 2; i++) {
+        if (option[i] !== option[option.length - 1 - i]) {
+            console.log('false: ' + option);
+            return false;
+        }
+    }
+    console.log('true: ' + option);
+    return true;
+}
+
+
+/* console.log(palindromeIndex2('aaab')); */
+
+let temp=true;
+function gridChallenge(grid) {
+    console.log(grid);
+    
+    //oRDENAR LAS FILAS
+    for (let i=0;i<grid.length;i++){
+        grid[i] = grid[i].split('').sort();
+    }
+    
+    if(colValidations(grid) && rowsValidation(grid)){
+        return 'YES'
+    }
+    else{
+        return 'NO'    
+    }
+}
+
+
+function rowsValidation(grid){
+   for (let i=0;i<grid.length;i++){
+       for(let j=0;j<grid[i].length-2;j++){
+            if(grid[i][j]>grid[i][j+1]){
+                return false;
+            }  
+       }
+    } 
+    return true;
+}
+
+function colValidations(grid){
+    for(let i=0;i<grid[0].length;i++){
+        
+        for(let j=0;j<grid.length-1;j++){
+            
+            if(grid[j][i]>grid[j+1][i]){
+                return false;
+            }
+        }
+    }
+    return true;
+}
