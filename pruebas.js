@@ -452,3 +452,63 @@ In each turn, a player can choose a tower of height  and reduce its height to x 
 If the current player is unable to make a move, they lose the game.
 Given the values of n and m, determine which player will win. If the first player wins, return 1. Otherwise, return 2. */
 
+function towerBreakers(n, m) {
+
+    if (m === 1) {
+        return 2;
+    }
+    else if (n === 1 && m > 1) {
+        return 1;
+    }
+    else if (n % 2 == 0 && m > 1) {
+        return 2;
+    }
+
+    else if (n % 2 !== 0 && m % 1 == 0) {
+        return 1;
+    }
+    else {
+        return 2;
+    }
+}
+
+/**
+ * Julius Caesar protected his confidential information by encrypting it using a cipher. Caesar's 
+ * cipher shifts each letter by a number of letters. If the shift takes you past the end of the alphabet, 
+ * just rotate back to the front of the alphabet. In the case of a rotation by 3, w, x, y and z would map to 
+ * z, a, b and c.
+ */
+function caesarCipher(s, k) {
+
+    let rotationFactor = k;
+    let clearText = s.split('');
+    let encryptedText = [];
+    console.log(rotationFactor, clearText);
+
+    let alphabetLower = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+    let alphabetUpper = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+    for (let i = 0; i < clearText.length; i++) {
+        let character = clearText[i];
+        console.log(character);
+
+        if (alphabetLower.includes(character)) {
+            let currPosition = alphabetLower.indexOf(character);
+            let newPosition = (currPosition + rotationFactor) % alphabetLower.length
+            encryptedText.push(alphabetLower[newPosition]);
+        }
+        else if (alphabetUpper.includes(character)) {
+            let currPosition = alphabetUpper.indexOf(character);
+            let newPosition = (currPosition + rotationFactor) % alphabetUpper.length
+
+            encryptedText.push(alphabetUpper[newPosition]);
+        }
+        else {
+            encryptedText.push(clearText[i]);
+        }
+    }
+    encryptedText = encryptedText.join('');
+    return encryptedText;
+
+}
