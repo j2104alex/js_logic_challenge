@@ -583,6 +583,13 @@ function isPalindrome(option) {
 
 /* console.log(palindromeIndex2('aaab')); */
 
+
+/**iven a square grid of characters in the range ascii[a-z], rearrange elements of each row alphabetically, ascending.
+ * Determine if the columns are also in ascending alphabetical order, top to bottom. Return YES if they are or NO if 
+ * they are not. 
+ * Ordenar las filas de manera ascendente
+ * Revisar si las columnas estan de manera ascendentes y retornar YES si esta ordenada la matriz en ambas maneras
+ * NO si es el caso contrario*/
 let temp=true;
 function gridChallenge(grid) {
     console.log(grid);
