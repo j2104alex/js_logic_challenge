@@ -590,44 +590,72 @@ function isPalindrome(option) {
  * Ordenar las filas de manera ascendente
  * Revisar si las columnas estan de manera ascendentes y retornar YES si esta ordenada la matriz en ambas maneras
  * NO si es el caso contrario*/
-let temp=true;
+let temp = true;
 function gridChallenge(grid) {
     console.log(grid);
-    
+
     //oRDENAR LAS FILAS
-    for (let i=0;i<grid.length;i++){
+    for (let i = 0; i < grid.length; i++) {
         grid[i] = grid[i].split('').sort();
     }
-    
-    if(colValidations(grid) && rowsValidation(grid)){
+
+    if (colValidations(grid) && rowsValidation(grid)) {
         return 'YES'
     }
-    else{
-        return 'NO'    
+    else {
+        return 'NO'
     }
 }
 
 
-function rowsValidation(grid){
-   for (let i=0;i<grid.length;i++){
-       for(let j=0;j<grid[i].length-2;j++){
-            if(grid[i][j]>grid[i][j+1]){
-                return false;
-            }  
-       }
-    } 
-    return true;
-}
-
-function colValidations(grid){
-    for(let i=0;i<grid[0].length;i++){
-        
-        for(let j=0;j<grid.length-1;j++){
-            
-            if(grid[j][i]>grid[j+1][i]){
+function rowsValidation(grid) {
+    for (let i = 0; i < grid.length; i++) {
+        for (let j = 0; j < grid[i].length - 2; j++) {
+            if (grid[i][j] > grid[i][j + 1]) {
                 return false;
             }
         }
     }
     return true;
 }
+
+function colValidations(grid) {
+    for (let i = 0; i < grid[0].length; i++) {
+
+        for (let j = 0; j < grid.length - 1; j++) {
+
+            if (grid[j][i] > grid[j + 1][i]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function superDigit(n, k) {
+    let resultado=n;
+    if (n < 10) {
+        return n;
+    }
+    if (k > 0) {
+        resultado = multiplicarString(n, k);
+    }
+    resultado = resultado.split('');
+
+    const numeros = resultado.map(elemento => parseInt(elemento))
+                            .reduce((acumulador, numero) => acumulador + numero, 0);
+
+    return superDigit(numeros.toString(), 0);
+}
+
+function multiplicarString(n, k) {
+    let resultado = '';
+
+    for (let i = 0; i < k; i++) {
+        resultado += n;
+    }
+
+    return resultado;
+}
+
+console.log(superDigit('9875', 4));
